@@ -1,8 +1,10 @@
 #-*-coding=utf-8-*-
 __author__ = 'xda'
-import requests,re
+import requests,re,time,sys,chardet
 from lxml import etree
-
+from toolkit import Toolkit
+reload(sys)
+sys.setdefaultencoding('utf-8')
 class getBBSContent():
 
     def __init__(self):
@@ -22,8 +24,15 @@ class getBBSContent():
             each_page_link=base_url+i
             content=requests.get(each_page_link,headers=self.header).text
             html=etree.HTML(content)
-            title=html.xpath('//title/text()')
-            print title[0]
+            #print content.decode('gbk')
+            t= chardet.detect(content)
+            print t['encoding']
+            #title=html.xpath('//title/text()')
+            #t= title[0].decode('gbk')
+
+            #print t
+            #Toolkit.save2filezn("log.txt",t)
+            #time.sleep(20)
 
 
 
