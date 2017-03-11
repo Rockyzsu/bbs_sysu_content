@@ -84,6 +84,7 @@ class getBBSContent():
             text_=resp_.text
             self.getContent(text_,folder)
             ii=ii+20
+            print ii
 
         #&start=
 
