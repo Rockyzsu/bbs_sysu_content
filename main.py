@@ -1,7 +1,7 @@
 #-*-coding=utf-8-*-
 __author__ = 'xda'
 #用法: 在同一个目录下，创建一个board.txt的文件，文件写入你想下载的版块的英文，比如每日一笑是Joke, 时光流转是Memory, 每写一个换一行
-import requests,re,time,sys,chardet,codecs,urllib2
+import requests,re,time,sys,chardet,codecs,urllib2,os
 from lxml import etree
 from toolkit import Toolkit
 reload(sys)
@@ -14,7 +14,7 @@ class getBBSContent():
                      }
 
 
-    def getContent(self,text):
+    def getContent(self,text,folder):
 
         links_p=re.compile('<td class="td6"><a href=bbstcon\?board=(.*?)>')
         result=links_p.findall(text)
@@ -44,13 +44,14 @@ class getBBSContent():
             print title
             filename=re.sub(u' - 逸仙时空BBS','',title)
             filename=Toolkit.filename_filter(filename)
-            Toolkit.save2filecn(filename,title)
-            Toolkit.save2filecn(filename,'\n\n*******************\n\n')
+            f_fullpath=os.path.join(folder,filename)
+            Toolkit.save2filecn(f_fullpath,title)
+            Toolkit.save2filecn(f_fullpath,'\n\n*******************\n\n')
             detail=html.xpath('//td[@class="border content2"]')
             #print detail
             for i in detail:
                 #print type(i)
-                Toolkit.save2filecn(filename, i.xpath('string(.)'))
+                Toolkit.save2filecn(f_fullpath, i.xpath('string(.)'))
                 #print i.xpath('string(.)')
 
             #f = open('log.txt','w')
@@ -60,10 +61,10 @@ class getBBSContent():
             #print t
             #Toolkit.save2filezn("log",t)
 
-            time.sleep(20)
+            time.sleep(5)
 
 
-    def getLoop(self,board):
+    def getLoop(self,board,folder):
         print "Board: ", board
         base_url='http://bbs.sysu.edu.cn/bbstdoc?board='
         url=base_url + board
@@ -81,7 +82,7 @@ class getBBSContent():
             resp_=requests.get(go_url,headers=self.header)
             resp_.encoding='gbk'
             text_=resp_.text
-            self.getContent(text_)
+            self.getContent(text_,folder)
             ii=ii+20
 
         #&start=
@@ -90,4 +91,6 @@ if __name__=='__main__':
     obj=getBBSContent()
     data=Toolkit.readConfig('board.txt')
     for i in data:
-        obj.getLoop(i)
+        os.mkdir(i)
+        sub_folder = os.path.join(os.getcwd(), i)
+        obj.getLoop(i,sub_folder)
