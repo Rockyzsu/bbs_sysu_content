@@ -1,5 +1,6 @@
 #-*-coding=utf-8-*-
 __author__ = 'xda'
+#用法: 在同一个目录下，创建一个board.txt的文件，文件写入你想下载的版块的英文，比如每日一笑是Joke, 时光流转是Memory, 每写一个换一行
 import requests,re,time,sys,chardet,codecs,urllib2
 from lxml import etree
 from toolkit import Toolkit
@@ -63,6 +64,7 @@ class getBBSContent():
 
 
     def getLoop(self,board):
+        print "Board: ", board
         base_url='http://bbs.sysu.edu.cn/bbstdoc?board='
         url=base_url + board
         resp=requests.get(url,headers=self.header)
@@ -86,4 +88,6 @@ class getBBSContent():
 
 if __name__=='__main__':
     obj=getBBSContent()
-    obj.getLoop('Memory')
+    data=Toolkit.readConfig('board.txt')
+    for i in data:
+        obj.getLoop(i)

@@ -36,3 +36,11 @@ class Toolkit():
     def filename_filter(filename_old):
         filename = re.sub('[\/:*?"<>|]', '-', filename_old)
         return filename
+
+    @staticmethod
+    def readConfig(filename):
+        f=open(filename,'r')
+        data=[]
+        for i in f.readlines():
+              data.append(i.strip())
+        return data
