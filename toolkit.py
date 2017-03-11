@@ -1,8 +1,8 @@
 # -*-coding=utf-8-*-
 #常用的工具集合
 __author__ = 'Rocky'
+import codecs,re
 
-import codecs
 class Toolkit():
     @staticmethod
     def save2file( filename, content):
@@ -11,10 +11,12 @@ class Toolkit():
         f = open(filename, 'a')
         f.write(content)
         f.close()
+
     @staticmethod
-    def save2filezn(filename,content):
-        filename=filename+'.txt'
-        f=codecs.open(filename,'w',encoding='gbk')
+    def save2filecn( filename, content):
+        # 保存为文件
+        filename = filename + ".txt"
+        f = codecs.open(filename, 'a',encoding='utf-8')
         f.write(content)
         f.close()
 
@@ -29,3 +31,8 @@ class Toolkit():
             account[ctype.strip()]=passwd.strip()
 
         return account
+
+    @staticmethod
+    def filename_filter(filename_old):
+        filename = re.sub('[\/:*?"<>|]', '-', filename_old)
+        return filename
