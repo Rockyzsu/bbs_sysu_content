@@ -45,8 +45,13 @@ class getBBSContent():
             filename=re.sub(u' - 逸仙时空BBS','',title)
             filename=Toolkit.filename_filter(filename)
             f_fullpath=os.path.join(folder,filename)
-            Toolkit.save2filecn(f_fullpath,title)
-            Toolkit.save2filecn(f_fullpath,'\n\n*******************\n\n')
+            try:
+                Toolkit.save2filecn(f_fullpath,title)
+                Toolkit.save2filecn(f_fullpath,'\n\n*******************\n\n')
+            except:
+                print each_page_link
+                print "Create file error, go to next article"
+                return
             detail=html.xpath('//td[@class="border content2"]')
             #print detail
             for i in detail:
