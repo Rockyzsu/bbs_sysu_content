@@ -34,7 +34,7 @@ class Toolkit():
 
     @staticmethod
     def filename_filter(filename_old):
-        filename = re.sub('[\/:*?"<>|]', '-', filename_old)
+        filename = re.sub('[\/:*?"<>|\\\\]', '-', filename_old)
         return filename
 
     @staticmethod
