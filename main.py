@@ -99,6 +99,7 @@ if __name__=='__main__':
     obj=getBBSContent()
     data=Toolkit.readConfig('board.txt')
     for i in data:
-        os.mkdir(i)
+        if os.path.exists(i):
+            os.mkdir(i)
         sub_folder = os.path.join(os.getcwd(), i)
         obj.getLoop(i,sub_folder)
