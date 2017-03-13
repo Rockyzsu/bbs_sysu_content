@@ -41,7 +41,11 @@ class getBBSContent():
             #t=title[0].decode('gbk').encode('utf-8')
             #t= title[0].decode('gbk')
             #t= unicode(title[0],'gbk')
-            print title
+            try:
+                print title
+            except:
+                print "Can't decode title, return"
+                return 0
             filename=re.sub(u' - 逸仙时空BBS','',title)
             filename=Toolkit.filename_filter(filename)
             f_fullpath=os.path.join(folder,filename)
@@ -53,7 +57,7 @@ class getBBSContent():
             except:
                 print each_page_link
                 print "Create file error, go to next article"
-                return
+                return 0
             detail=html.xpath('//td[@class="border content2"]')
             #print detail
             for i in detail:
