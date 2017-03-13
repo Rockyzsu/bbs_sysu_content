@@ -48,6 +48,8 @@ class getBBSContent():
             try:
                 Toolkit.save2filecn(f_fullpath,title)
                 Toolkit.save2filecn(f_fullpath,'\n\n*******************\n\n')
+                Toolkit.save2filecn(f_fullpath,each_page_link)
+                Toolkit.save2filecn(f_fullpath,'\n\n*******************\n\n')
             except:
                 print each_page_link
                 print "Create file error, go to next article"
