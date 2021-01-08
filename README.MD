@@ -16,4 +16,4 @@
 
 **逸仙时空**
 
-[![sK6Rxg.jpg](https://s3.ax1x.com/2021/01/08/sK6Rxg.jpg)](https://imgchr.com/i/sK6Rxg)
+![](https://s3.ax1x.com/2021/01/08/sK6Rxg.jpg)
